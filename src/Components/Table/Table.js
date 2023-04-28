@@ -1,7 +1,11 @@
 import React from "react";
 import style from "./Table.module.css";
+import useWindowWidth from "../../Hooks/useWindowWidth";
+import camelCaseToText from "../../common/camelCaseToText";
 
 const Table = () => {
+  const windowWidth = useWindowWidth();
+
   const tableData = [
     {
       title: "Avatar",
@@ -44,28 +48,55 @@ const Table = () => {
     <div className={style.structure}>
       <h1>Sample Movie Table</h1>
       <div className={style.content}>
-        <table>
-          <tr>
-            <th>S.No</th>
-            <th>Title</th>
-            <th>Budget</th>
-            <th>Release Date</th>
-            <th>Runtime</th>
-            <th>Vote Average</th>
-          </tr>
-          {tableData.map((data, index) => {
-            return (
-              <tr>
-                <td>{index + 1}</td>
-                <td>{data.title}</td>
-                <td>{data.budget}</td>
-                <td>{data.releaseDate}</td>
-                <td>{data.runTime}</td>
-                <td>{data.votes}</td>
-              </tr>
-            );
-          })}
-        </table>
+        {windowWidth >= 758 ? (
+          <table>
+            <thead>
+              <th>S.No</th>
+              <th>Title</th>
+              <th>Budget</th>
+              <th>Release Date</th>
+              <th>Runtime</th>
+              <th>Vote Average</th>
+            </thead>
+            <tbody>
+              {tableData.map((data, index) => {
+                return (
+                  <tr className={index % 2 === 0 ? style.alternateColor : null}>
+                    <td>{index + 1}</td>
+                    <td>{data.title}</td>
+                    <td>{data.budget}</td>
+                    <td>{data.releaseDate}</td>
+                    <td>{data.runTime}</td>
+                    <td>{data.votes}</td>
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        ) : (
+          <table>
+            <tbody>
+              {tableData.map((data, idx) => {
+                return (
+                  <tr className={idx % 2 === 0 ? style.alternateColor : null}>
+                    <tr>
+                      <th>S.No</th>
+                      <td>{idx + 1}</td>
+                    </tr>
+                    {Object.keys(data).map((key) => {
+                      return (
+                        <tr>
+                          <th>{camelCaseToText(key)}</th>
+                          <td>{data[key]}</td>
+                        </tr>
+                      );
+                    })}
+                  </tr>
+                );
+              })}
+            </tbody>
+          </table>
+        )}
       </div>
     </div>
   );

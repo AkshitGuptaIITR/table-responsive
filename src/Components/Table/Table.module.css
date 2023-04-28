@@ -4,14 +4,11 @@
   justify-content: center;
   height: 90vh;
   flex-direction: column;
-  overflow-x: hidden;
 }
 
-.structure>table {
+.structure table {
   text-align: center;
-  /* overflow-x: auto; */
-  width: 100%;
-  table-layout: fixed;
+  border-collapse: collapse;
 }
 
 .structure table,
@@ -23,30 +20,26 @@
 .structure td,
 .structure th {
   padding: 12px;
-  width: fit-content !important;
-  width: -moz-fit-content;
   min-width: 150px;
   text-align: center;
 }
 
-.structure tr{
-  width: fit-content !important;
-  width: -moz-fit-content;
+.alternateColor{
+  background-color: #E4DCCF;
 }
 
 .content {
-  width: 80%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  overflow-y: auto;
+}
+
+tr:hover{
+  background-color: #FFA559;
 }
 
 @media (max-width: 756px) {
   .structure {
-    height: 60vh;
-    padding: 0 12px;
+    height: 100%;
+    padding: 12px 12px;
   }
 
   .structure td,
